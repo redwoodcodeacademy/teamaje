@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 // COMPONENTS
 import Container from './components/container'
 
-//CSS
+CSS
 import './styles/styles.css'
 
-ReactDOM.render(<Container />, document.getElementById('app'))
+ReactDOM.render(<Container />, document.getElementById('app'));

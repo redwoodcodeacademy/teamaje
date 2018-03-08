@@ -2,6 +2,7 @@ import React from 'react';
 import TitleBar from './title-bar';
 import Menu from './menu'
 import Notes from './notes'
+import PeopleList from './people-list'
 
 class Container extends React.Component {
   render() {
@@ -12,7 +13,7 @@ class Container extends React.Component {
             <Menu />
           </div>
         <Notes />
-        
+        <PeopleList/>
       </div>
     )
   }
