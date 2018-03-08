@@ -1,0 +1,1 @@
+export const saveNote = notes => ({ type: "SAVE_NOTE", payload: notes })
