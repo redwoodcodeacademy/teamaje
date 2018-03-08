@@ -1,5 +1,9 @@
-import React from 'react';
-import Note from './note';
+import React from 'react'
+import Note from './note'
+import uniqid from 'uniqid'
+
+import { connect } from 'react-redux'
+import { saveNote } from '..//redux/action'
 
 class NotesList extends React.Component {
     constructor(props) {
@@ -9,8 +13,7 @@ class NotesList extends React.Component {
         this.state = {
             txtWhereInput: '',
             dateWhenInput: '',
-            txtWhatInput: '',
-            notes: []
+            txtWhatInput: ''
         }
     }
 
@@ -23,13 +26,13 @@ class NotesList extends React.Component {
                             <div className="form-group">
                                 {/* Add a form here to add all the properties of a note */}
                                 <p><label htmlFor="txtWhere">Where:</label>
-                                <input type="text" className="form-control" id="txtWhere" value={ this.state.txtWhereInput } onChange={ this.txtWhereInputChange.bind(this)  } /></p>
+                                <input type="text" className="form-control" id="txtWhere" value={ this.state.txtWhereInput } onChange={ (e) => { this.setState ({ txtWhereInput: e.target.value }) }  } /></p>
                                 
                                 <p><label htmlFor="dateWhen">When:</label>
-                                <input type="date" className="form-control" id="dateWhen" value={ this.state.dateWhenInput } onChange={ this.dateWhenInputChange.bind(this)  } /></p>
+                                <input type="date" className="form-control" id="dateWhen" value={ this.state.dateWhenInput } onChange={ (e) => { this.setState({ dateWhenInput: e.target.value }) }  } /></p>
 
                                 <p><label htmlFor="txtWhat">What:</label>
-                                <input type="text" className="form-control" id="txtWhat" value={ this.state.txtWhatInput } onChange={ this.txtWhatInputChange.bind(this) } /></p>
+                                <input type="text" className="form-control" id="txtWhat" value={ this.state.txtWhatInput } onChange={ (e) => { this.setState({ txtWhatInput: e.target.value  }) } } /></p>
 
                                 <button id="btnSubmit" className="btn btn-primary" onClick={ this.saveNote.bind(this) }>Save Note</button>
                             </div>
@@ -37,9 +40,9 @@ class NotesList extends React.Component {
                                 {/* Show all notes in your state here */}
                                 <div>
                                     {
-                                        this.state.notes.map((n, i) => 
-                                            <div key={ i }>
-                                                <Note id= { n.id } where={ n.where } when={ n.when } what={ n.what } onEdit={ this.noteEdit.bind(this) } onDelete={ this.noteDelete.bind(this) } />
+                                        this.props.notes.map((item, index) => 
+                                            <div key={ index }>
+                                                <Note id= { item.id } where={ item.where } when={ item.when } what={ item.what } onEdit={ this.noteEdit.bind(this) } onDelete={ this.noteDelete.bind(this) } />
                                             </div>
                                         )
                                     }
@@ -74,56 +77,24 @@ class NotesList extends React.Component {
             }
         }
 
-        this.setState = ({
-            notes: newNotes
-        })
-    }
-
-    txtWhereInputChange(e) {
-        // Save the where button
-        this.setState ({
-            txtWhereInput: e.target.value
-        })
-    }
-
-    dateWhenInputChange(e) {
-        // Save the when input entry
-        this.setState({
-            dateWhenInput: e.target.value
-        })
-    }
-
-    txtWhatInputChange(e) {
-        // Save the what input entry
-        this.setState({
-            txtWhatInput: e.target.value
-        })
+        // this.setState = ({
+        //     notes: newNotes
+        // })
     }
 
 
     saveNote(e) {
-        // Save the note
-        // Copy the array
-        var notesArr = this.state.notes.slice();
+        // Save the note to the store
 
-        // Set the values
-        notesArr.push ( {
-            id: Date.now(),  // or use uniqid()
+        var notesArr = this.props.notes.concat( {
+            id: uniqid(),
             where: this.state.txtWhereInput,
             when: this.state.dateWhenInput,
             what: this.state.txtWhatInput
-        })
+        });
 
-        // Set the state
-        this.setState ({
-            notes: notesArr,
-
-            // Clear the input state
-            txtWhereInput: '',
-            dateWhenInput: '',
-            txtWhatInput: ''
-
-        })
+        // Save to the store
+        this.props.saveNotes(notesArr);
 
     }
 
@@ -131,4 +102,16 @@ class NotesList extends React.Component {
 
 }
 
-export default NotesList;
+const MapStateToProps = state => {
+    return {
+        notes: state.notes
+    }
+}
+
+const MapDispatchToProps = dispatch =>  {
+    return {
+        saveNotes: notes => dispatch(saveNote(notes))
+    }
+}
+
+export default connect(MapStateToProps, MapDispatchToProps)(NotesList)
