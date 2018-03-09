@@ -42,7 +42,7 @@ class NotesList extends React.Component {
                                     {
                                         this.props.notes.map((item, index) => 
                                             <div key={ index }>
-                                                <Note id= { item.id } where={ item.where } when={ item.when } what={ item.what } onEdit={ this.noteEdit.bind(this) } onDelete={ this.noteDelete.bind(this) } />
+                                                <Note id={ item.id } where={ item.where } when={ item.when } what={ item.what } onEdit={ this.noteEdit.bind(this) } onDelete={ this.noteDelete.bind(this) } />
                                             </div>
                                         )
                                     }

@@ -8,6 +8,15 @@ const initialState =  {
             when: '01.01.2018',
             what: 'Test notes. test note. test this'
         }
+    ],
+    evidence: [
+        {
+            id: uniqid(),
+            name: 'Someone',
+            date: '1/1/12',
+            location: 'test',
+            found: 'test'
+        },
     ]
 }
 
@@ -19,6 +28,14 @@ const rootReducer = (state = initialState, action) => {
         state = {
             ... state,
             notes: action.payload
+        }
+        
+    }
+    
+    if (action.type == "SAVE_EVIDENCE") {
+        state = {
+            ... state,
+            evidence: action.payload
         }
     }
 
