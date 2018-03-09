@@ -5,6 +5,7 @@ import TitleBar from './title-bar';
 import Menu from './menu'
 import Notes from './notes'
 import PeopleList from './people-list'
+import EvidenceForm from './evidence-form'
 
 
 class Container extends React.Component {
@@ -17,6 +18,7 @@ class Container extends React.Component {
           </div>
           <Route exact path='/' component={ Notes } />
           <Route path='/people' component={ PeopleList } />
+          <Route path='/evidence' component={ EvidenceForm } />
 
         {/* <PeopleList/> */}
       </div>

@@ -2,12 +2,15 @@ import uniqid from 'uniqid'
 
 const initialState =  {
     notes: [ 
-        // {
-        //     id: uniqid(),
-        //     where: 'Test City CA',
-        //     when: '01.01.2018',
-        //     what: 'Test notes. test note. test this'
-        // }
+        {
+            id: uniqid(),
+            where: 'Test City CA',
+            when: '01.01.2018',
+            what: 'Test notes. test note. test this'
+        }
+    ],
+    evidence: [
+        
     ]
 }
 

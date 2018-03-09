@@ -14,11 +14,7 @@ import './styles/styles.css'
 import evidenceForm from './components/evidence-form';
 
 ReactDOM.render( (<Provider store={ store }>
-<<<<<<< HEAD
-<EvidenceForm />
-=======
 <BrowserRouter>
 <Container />
 </BrowserRouter>
->>>>>>> cf83764d936124a3876b89ab46a23ce42f84d4f4
 </Provider>), document.getElementById('app'))

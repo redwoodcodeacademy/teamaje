@@ -10,7 +10,8 @@ class Menu extends React.Component {
           <ul className="nav navbar-nav">
             <li><Link to="/">Notes</Link></li>
             <li><Link to="/people">People</Link></li>
-            <li><a href="#">Evidence</a></li>
+            <li><Link to="/evidence">Evidence</Link></li>
+            
           </ul>
         </div>
       </nav>

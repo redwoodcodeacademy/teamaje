@@ -22,11 +22,7 @@ class EvidenceForm extends Component {
     render() {
         return (
             <div>
-                <div className="col-md-12 continer-fluid">
-                    <Title title="Detective App" />
-                    <Menu />
-
-                </div>
+                
                 <div className="col-md-12 continer-fluid">
                     <h3 className="pull-left">Evidence</h3>
                     <button id="button-add" className="pull-left btn btn-primary">Log Evidence</button>
