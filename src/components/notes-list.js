@@ -3,7 +3,7 @@ import Note from './note'
 import uniqid from 'uniqid'
 
 import { connect } from 'react-redux'
-import { saveNote } from '..//redux/action'
+import { saveNote } from '../redux/action'
 
 class NotesList extends React.Component {
     constructor(props) {

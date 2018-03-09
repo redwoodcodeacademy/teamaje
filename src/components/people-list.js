@@ -3,6 +3,8 @@ import Subtitle from './subtitle'
 import AddPerson from './add-person'
 import AddPersonForm from './add-person-form';
 
+import { connect } from 'react-redux'
+
 class PeopleList extends Component {
     constructor(props) {
         super(props);
@@ -20,23 +22,25 @@ class PeopleList extends Component {
                 </div>
                 <div className="row">
                     <div className="col-md-12">
-                        <AddPerson />
-                        <AddPerson />
-                        <AddPerson />
-                        <AddPerson />
+                    {
+                        this.props.person.map((item, index) =>
+                            <div key={index}>
+                            <AddPerson name={item.name} lastSeen={item.lastSeen} dateSeen={item.dateSeen} image={item.image} />
+                            </div>
+                        )
+                    }
                     </div>
-                </div>
-                <div className="row">
-                    <div className="col-md-12">
-                        <AddPerson />
-                        <AddPerson />
-                        <AddPerson />
-                        <AddPerson />
-                    </div>
+                    
                 </div>
             </div>
         )
     }
 }
 
-export default PeopleList;
+const MapStateToProps = state => {
+    return {
+        person: state.person
+    }
+}
+
+export default connect(MapStateToProps)(PeopleList)
