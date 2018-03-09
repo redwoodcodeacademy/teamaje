@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Subtitle from './subtitle'
 import AddPerson from './add-person'
+import AddPersonForm from './add-person-form';
 
 class PeopleList extends Component {
     constructor(props) {
@@ -13,6 +14,9 @@ class PeopleList extends Component {
                 <div id="subtitle-container" className="row">
                     <Subtitle subtitle="People" />
                     <button id="button-add" className="pull-left btn btn-success">Add Person</button>
+                </div>
+                <div>
+                    <AddPersonForm/>
                 </div>
                 <div className="row">
                     <div className="col-md-12">

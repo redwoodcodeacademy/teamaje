@@ -35,7 +35,15 @@ p {
 
 #image{
   height: 100px;
+  
 }
 .imageStyle{
   border: 2px solid black;
+  padding: 10px;
+}
+.formRow {
+  padding: 5px;
+}
+.inputPush{
+  padding-right: 30px;
 }

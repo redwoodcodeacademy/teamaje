@@ -4,6 +4,7 @@ import Menu from './menu'
 import Notes from './notes'
 import PeopleList from './people-list'
 
+
 class Container extends React.Component {
   render() {
     return (
@@ -12,7 +13,7 @@ class Container extends React.Component {
             <TitleBar title="Detective App" />
             <Menu />
           </div>
-        <Notes />
+        {/* <Notes /> */}
         <PeopleList/>
       </div>
     )
