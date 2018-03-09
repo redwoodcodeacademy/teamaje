@@ -38,11 +38,12 @@ class NotesList extends React.Component {
                             </div>
                             <div className="row">
                                 {/* Show all notes in your state here */}
+                                
                                 <div>
                                     {
                                         this.props.notes.map((item, index) => 
                                             <div key={ index }>
-                                                <Note id= { item.id } where={ item.where } when={ item.when } what={ item.what } onEdit={ this.noteEdit.bind(this) } onDelete={ this.noteDelete.bind(this) } />
+                                                <Note id= { item.id } where={ item.where } when={ item.when } what={ item.what } onEdit={ this.noteEdit.bind(this, index ) } onDelete={ this.noteDelete.bind(this, index) } />
                                             </div>
                                         )
                                     }
@@ -58,31 +59,6 @@ class NotesList extends React.Component {
         
     }
 
-    noteEdit(note) {
-        this.setState({
-            txtWhatInput: note.what,
-            txtWhenInput: note.when,
-            txtWhereInput: note.where,
-        })
-
-    }
-
-    noteDelete(note) {
-        var newNotes = this.state.notes.slice();
-        // newNotes = newNotes.filter(item => item.id != note.id)
-
-        for (var i = 0; i < newNotes.length; i++) {
-            if (newNotes[i].id == note.id) {
-                newNotes.splice(i, 1);
-            }
-        }
-
-        // this.setState = ({
-        //     notes: newNotes
-        // })
-    }
-
-
     saveNote(e) {
         // Save the note to the store
 
@@ -93,10 +69,62 @@ class NotesList extends React.Component {
             what: this.state.txtWhatInput
         });
 
-        // Save to the store
+        // Save to redux
         this.props.saveNotes(notesArr);
 
+        // Remove entries from the textbox
+        this.setState({
+            txtWhatInput: '',
+            dateWhenInput: '',
+            txtWhereInput: ''
+        })
+
+
     }
+
+    noteDelete(index, note) {
+        // Remove the note at the supplied index
+        var notesCopy = this.props.notes.slice();
+        // newNotes = newNotes.filter(item => item.id != note.id)
+        // console.log(index);
+        notesCopy.splice(index, 1);
+
+        // Save to redux
+        this.props.saveNotes(notesCopy);
+        
+    }
+    
+
+    noteEdit(index, note) {
+        // Edit the note at the supplied index
+        this.setState({
+            txtWhatInput: note.what,
+            txtWhenInput: note.when,
+            txtWhereInput: note.where,
+        })
+
+        var notesCopy = this.props.notes.slice();
+
+        // Loop through the array and edit the record at the index provided
+        console.log(index);
+
+        // for (var i = 0; i < notesCopy.length; i++) {
+        //     if (i == index) {
+        //         notesCopy[i].where = this.state.txtWhereInput,
+        //         notesCopy[i].when = this.state.dateWhenInput,
+        //         notesCopy[i].what = this.state.txtWhatInput
+        //     }
+        // }
+
+        // // Save to redux
+        // this.props.saveNotes(notesCopy);
+        
+
+        
+
+    }
+
+    
 
 
 
