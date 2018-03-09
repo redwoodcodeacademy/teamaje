@@ -1,7 +1,11 @@
 import React from 'react';
+import { Link, Switch, Route } from 'react-router-dom'
+
 import TitleBar from './title-bar';
 import Menu from './menu'
 import Notes from './notes'
+import PeopleList from './people-list'
+
 
 class Container extends React.Component {
   render() {
@@ -11,8 +15,10 @@ class Container extends React.Component {
             <TitleBar title="Detective App" />
             <Menu />
           </div>
-        <Notes />
-        
+          <Route exact path='/' component={ Notes } />
+          <Route path='/people' component={ PeopleList } />
+
+        {/* <PeopleList/> */}
       </div>
     )
   }

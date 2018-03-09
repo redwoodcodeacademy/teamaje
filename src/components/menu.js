@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, Switch, Route } from 'react-router-dom'
 
 class Menu extends React.Component {
   render() {
@@ -7,14 +8,17 @@ class Menu extends React.Component {
         <div className="container-fluid">
           
           <ul className="nav navbar-nav">
-            <li className="active"><a href="#">Notes</a></li>
-            <li><a href="#">People</a></li>
+            <li><Link to="/">Notes</Link></li>
+            <li><Link to="/people">People</Link></li>
             <li><a href="#">Evidence</a></li>
           </ul>
         </div>
       </nav>
     )
   }
+
+
+
 }
 
 export default Menu;
