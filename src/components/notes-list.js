@@ -13,8 +13,18 @@ class NotesList extends React.Component {
         this.state = {
             txtWhereInput: '',
             dateWhenInput: '',
-            txtWhatInput: ''
+            txtWhatInput: '',
+            editNoteIndex: 0
         }
+    }
+
+    componentDidMount() {
+        // Hide the edit and cancel buttons when the component is loaded
+        $('#btnEdit').hide();
+        $("#btnCancel").hide();
+        $('#btnCancel').css("margin-left", "10px");
+
+        $('#btnSubmit').show();
     }
 
     render() {
@@ -35,6 +45,9 @@ class NotesList extends React.Component {
                                 <input type="text" className="form-control" id="txtWhat" value={ this.state.txtWhatInput } onChange={ (e) => { this.setState({ txtWhatInput: e.target.value  }) } } /></p>
 
                                 <button id="btnSubmit" className="btn btn-primary" onClick={ this.saveNote.bind(this) }>Save Note</button>
+                                
+                                <button id="btnEdit" className="btn btn-primary" onClick={ this.editNote.bind(this) }>Edit Note</button>
+                                <button id="btnCancel" className="btn btn-primary" onClick={ this.cancelEdit.bind(this) }>Cancel</button>
                             </div>
                             <div className="row">
                                 {/* Show all notes in your state here */}
@@ -73,13 +86,18 @@ class NotesList extends React.Component {
         this.props.saveNotes(notesArr);
 
         // Remove entries from the textbox
+        this.resetState();
+
+    }
+
+    resetState() {
+        // Resets the state to remove entries from the textbox
         this.setState({
             txtWhatInput: '',
             dateWhenInput: '',
-            txtWhereInput: ''
+            txtWhereInput: '',
+            editNoteIndex: 0
         })
-
-
     }
 
     noteDelete(index, note) {
@@ -97,34 +115,71 @@ class NotesList extends React.Component {
 
     noteEdit(index, note) {
         // Edit the note at the supplied index
+        // Place the values into the respective textboxes
         this.setState({
             txtWhatInput: note.what,
-            txtWhenInput: note.when,
+            dateWhenInput: note.when,
             txtWhereInput: note.where,
         })
+        
+        // Hide the Save Note button
+        $('#btnSubmit').hide();        
+
+        // Display the Edit Note and Cancel buttons
+        $('#btnEdit').show();
+        $('#btnCancel').show();
+
+        // Update the index in the state for use when the user clicks the final Edit Note button
+        this.setState({
+            editNoteIndex: index
+        })
+
+    }
+
+    editNote(e) {
+        // Edit the note to the store
+        console.log("Edit this item", this.state.editNoteIndex);
 
         var notesCopy = this.props.notes.slice();
 
         // Loop through the array and edit the record at the index provided
-        console.log(index);
 
-        // for (var i = 0; i < notesCopy.length; i++) {
-        //     if (i == index) {
-        //         notesCopy[i].where = this.state.txtWhereInput,
-        //         notesCopy[i].when = this.state.dateWhenInput,
-        //         notesCopy[i].what = this.state.txtWhatInput
-        //     }
-        // }
+        for (var i = 0; i < notesCopy.length; i++) {
+            if (i == this.state.editNoteIndex) {
+                notesCopy[i].where = this.state.txtWhereInput,
+                notesCopy[i].when = this.state.dateWhenInput,
+                notesCopy[i].what = this.state.txtWhatInput
+            }
+        }
 
-        // // Save to redux
-        // this.props.saveNotes(notesCopy);
-        
+        // Save to redux
+        this.props.saveNotes(notesCopy);
 
-        
+        // Hide the Edit and Cancel buttons
+        $("#btnEdit").hide();
+        $("#btnCancel").hide();
+
+        // Display the Save button
+        $("#btnSubmit").show();
+
+        // Remove entries from the textbox
+        this.resetState();
 
     }
-
     
+    cancelEdit(e) {
+        // Cancel the edit, clear the textboxes and display the Save button
+
+        // Hide the edit and cancel buttons
+        $("#btnEdit").hide();
+        $("#btnCancel").hide();
+
+        // Display the save button
+        $("#btnSubmit").show();
+
+        // Remove entries from the textbox
+        this.resetState();
+    }
 
 
 
